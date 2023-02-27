@@ -11,22 +11,19 @@ end
 
 local packer_bootstrap = ensure_packer()
 
--- insert jess' code here
---- Initialize packer
-
 require('packer').reset()
 require('packer').init({
   compile_path = vim.fn.stdpath('data')..'/site/plugin/packer_compiled.lua',
   display = {
-   open_fn = function()
-     return require('packer.util').float({ border = 'solid' })
-   end,
- },
-})  
+    open_fn = function()
+      return require('packer.util').float({ border = 'solid' })
+    end,
+  },
+})
 
 local use = require('packer').use
 
--- Packer can manage itself
+-- Packer can manage itself.
 use('wbthomason/packer.nvim')
 
 -- One Dark theme.
@@ -39,18 +36,22 @@ use({
       fg = vim.api.nvim_get_hl_by_name('NormalFloat', true).background,
       bg = vim.api.nvim_get_hl_by_name('NormalFloat', true).background,
     })
+
+    -- Make the cursor line background invisible
+    vim.api.nvim_set_hl(0, 'CursorLineBg', {
+      fg = vim.api.nvim_get_hl_by_name('CursorLine', true).background,
+      bg = vim.api.nvim_get_hl_by_name('CursorLine', true).background,
+    })
+
+    vim.api.nvim_set_hl(0, 'NvimTreeIndentMarker', { fg = '#30323E' })
   end,
 })
 
-
--- Commenting support
--- gcc to turn on and off comments
+-- Commenting support.
 use('tpope/vim-commentary')
 
 -- Add, change, and delete surrounding text.
--- Press cs single quote, double quote
-use ("tpope/vim-surround") 
-
+use('tpope/vim-surround')
 
 -- Useful commands like :Rename and :SudoWrite.
 use('tpope/vim-eunuch')
@@ -139,27 +140,33 @@ use({
   end,
 })
 
-
 -- Fuzzy finder
--- use({
---   'nvim-telescope/telescope.nvim',
---   requires = {
---     'nvim-lua/plenary.nvim',
---     'kyazdani42/nvim-web-devicons',
---     'nvim-telescope/telescope-live-grep-args.nvim',
---     { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' },
---   },
---   config = function()
---     require('user/plugins/telescope.lua')
---   end,
--- })
+use({
+  'nvim-telescope/telescope.nvim',
+  requires = {
+    'nvim-lua/plenary.nvim',
+    'kyazdani42/nvim-web-devicons',
+    'nvim-telescope/telescope-live-grep-args.nvim',
+    { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' },
+  },
+  config = function()
+    require('user/plugins/telescope')
+  end,
+})
 
-
+-- File tree sidebar
+use({
+  'kyazdani42/nvim-tree.lua',
+  requires = 'kyazdani42/nvim-web-devicons',
+  config = function()
+    require('user/plugins/nvim-tree')
+  end,
+})
 
 -- Automatically set up your configuration after cloning packer.nvim
 -- Put this at the end after all plugins
 if packer_bootstrap then
-  require('packer').sync()
+    require('packer').sync()
 end
 
 vim.cmd([[
@@ -168,3 +175,4 @@ vim.cmd([[
     autocmd BufWritePost plugins.lua source <afile>
   augroup end
 ]])
+
