@@ -17,17 +17,31 @@ local packer_bootstrap = ensure_packer()
 require('packer').reset()
 require('packer').init({
   compile_path = vim.fn.stdpath('data')..'/site/plugin/packer_compiled.lua',
---  display = {
---    open_fn = function()
---      return require('packer.util').float({ border = 'solid' })
---    end,
---  },
+  display = {
+   open_fn = function()
+     return require('packer.util').float({ border = 'solid' })
+   end,
+ },
 })  
 
 local use = require('packer').use
 
 -- Packer can manage itself
 use('wbthomason/packer.nvim')
+
+-- One Dark theme.
+use({
+  'jessarcher/onedark.nvim',
+  config = function()
+    vim.cmd('colorscheme onedark')
+
+    vim.api.nvim_set_hl(0, 'FloatBorder', {
+      fg = vim.api.nvim_get_hl_by_name('NormalFloat', true).background,
+      bg = vim.api.nvim_get_hl_by_name('NormalFloat', true).background,
+    })
+  end,
+})
+
 
 -- Commenting support
 -- gcc to turn on and off comments
@@ -124,6 +138,22 @@ use({
     vim.g.pasta_disabled_filetypes = { 'fugitive' }
   end,
 })
+
+
+-- Fuzzy finder
+-- use({
+--   'nvim-telescope/telescope.nvim',
+--   requires = {
+--     'nvim-lua/plenary.nvim',
+--     'kyazdani42/nvim-web-devicons',
+--     'nvim-telescope/telescope-live-grep-args.nvim',
+--     { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' },
+--   },
+--   config = function()
+--     require('user/plugins/telescope.lua')
+--   end,
+-- })
+
 
 
 -- Automatically set up your configuration after cloning packer.nvim
