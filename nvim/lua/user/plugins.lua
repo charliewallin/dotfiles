@@ -11,15 +11,17 @@ end
 
 local packer_bootstrap = ensure_packer()
 
+--- Initialize packer
+
 require('packer').reset()
 require('packer').init({
   compile_path = vim.fn.stdpath('data')..'/site/plugin/packer_compiled.lua',
-  display = {
-    open_fn = function()
-      return require('packer.util').float({ border = 'solid' })
-    end,
-  },
-})
+ display = {
+   open_fn = function()
+     return require('packer.util').float({ border = 'solid' })
+   end,
+ },
+})  
 
 local use = require('packer').use
 
@@ -36,18 +38,11 @@ use({
       fg = vim.api.nvim_get_hl_by_name('NormalFloat', true).background,
       bg = vim.api.nvim_get_hl_by_name('NormalFloat', true).background,
     })
-
-    -- Make the cursor line background invisible
-    vim.api.nvim_set_hl(0, 'CursorLineBg', {
-      fg = vim.api.nvim_get_hl_by_name('CursorLine', true).background,
-      bg = vim.api.nvim_get_hl_by_name('CursorLine', true).background,
-    })
-
-    vim.api.nvim_set_hl(0, 'NvimTreeIndentMarker', { fg = '#30323E' })
   end,
 })
 
--- Commenting support.
+-- Commenting support
+-- gcc to turn on and off comments
 use('tpope/vim-commentary')
 
 -- Add, change, and delete surrounding text.
