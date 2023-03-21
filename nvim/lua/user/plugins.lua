@@ -45,7 +45,13 @@ use({
       bg = vim.api.nvim_get_hl_by_name('CursorLine', true).background,
     })
 
-    vim.api.nvim_set_hl(0, 'NvimTreeIndentMarker', { fg = '#30323E' })
+     vim.api.nvim_set_hl(0, 'NvimTreeIndentMarker', { fg = '#30323E' })
+     vim.api.nvim_set_hl(0, 'StatusLineNonText', {
+      fg = vim.api.nvim_get_hl_by_name('NonText', true).foreground,
+      bg = vim.api.nvim_get_hl_by_name('StatusLine', true).background,
+    })
+--  Set the indent lines so they are subtle
+--    vim.api.nvim_set_hl(0, 'IndentBlanklineChar', { fg = '#2F313C' })
   end,
 })
 
@@ -145,20 +151,6 @@ use({
   end,
 })
 
-
--- Automatically set up your configuration after cloning packer.nvim
--- Put this at the end after all plugins
-if packer_bootstrap then
-  require('packer').sync()
-end
-
-vim.cmd([[
-  augroup packer_user_config
-    autocmd!
-    autocmd BufWritePost plugins.lua source <afile>
-  augroup end
-]])
-
 -- fuzzy finder
 use({
   'nvim-telescope/telescope.nvim',
@@ -181,3 +173,57 @@ use({
     require('user/plugins/nvim-tree')
   end,
 })
+
+-- A Status line.
+use({
+  'nvim-lualine/lualine.nvim',
+  requires = 'kyazdani42/nvim-web-devicons',
+  config = function()
+    require('user/plugins/lualine')
+  end,
+})
+
+-- Display buffers as tabs.
+use({
+  'akinsho/bufferline.nvim',
+  requires = 'kyazdani42/nvim-web-devicons',
+  after = 'onedark.nvim',
+  config = function()
+  require('user/plugins/bufferline')
+
+  end,
+})
+
+-- Display indentation lines.
+-- Commented out because I kept getting an error when compiling the 
+-- indent-blankline.lua file. Come back when I have more time to investigate
+use({
+  'lukas-reineke/indent-blankline.nvim',
+  config = function()
+    require('user/plugins/indent-blankline')
+  end,
+})
+
+-- Display a dashboard 
+-- use ({
+--     'glepnir/dashboard-nvim',
+--   })
+use({
+  'glepnir/dashboard-nvim',
+  config = function()
+    require('user/plugins/dashboard-nvim')
+  end
+})
+-- Automatically set up your configuration after cloning packer.nvim
+-- Put this at the end after all plugins
+if packer_bootstrap then
+  require('packer').sync()
+end
+
+vim.cmd([[
+  augroup packer_user_config
+    autocmd!
+    autocmd BufWritePost plugins.lua source <afile>
+  augroup end
+]])
+
