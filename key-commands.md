@@ -25,4 +25,15 @@ space q   Buffer delete
 :vsplit         vertial split
 :on             "only" go back to one window
                 
+## Git
+
+[h              Go to next hunk
+h               Go to previous hunk
+gs              Stage the hunk
+gS              Undo stage hunk
+gp              Preview hunk
+gb              Blame line
+:G blame        Cool feature that shows all the blame
+:GBrowse        Opens the GitHub page for the associated code
+:G              Shows the status. You can stage and unstage files within the window.
 
