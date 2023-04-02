@@ -37,3 +37,8 @@ gb              Blame line
 :GBrowse        Opens the GitHub page for the associated code
 :G              Shows the status. You can stage and unstage files within the window.
 
+## Terminal inside neovim
+
+:terminal       Opens a terminal inside of neovim. Still has vim modes, so you need to 
+                press i to enter commands.
+ctrl\ctrln      Back to normal mode
