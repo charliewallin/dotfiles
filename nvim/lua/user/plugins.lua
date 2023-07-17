@@ -208,12 +208,12 @@ use({
 -- use ({
 --     'glepnir/dashboard-nvim',
 --   })
-use({
-  'glepnir/dashboard-nvim',
-  config = function()
-    require('user/plugins/dashboard-nvim')
-  end
-})
+-- use({
+--  'glepnir/dashboard-nvim',
+--  config = function()
+--    require('user/plugins/dashboard-nvim')
+--  end
+-- })
 
 use({
   'lewis6991/gitsigns.nvim',
